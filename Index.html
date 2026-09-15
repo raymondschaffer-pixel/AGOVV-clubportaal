@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportpark Portaal</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans leading-relaxed">
+
+    <!-- Header / Welkomstwoord -->
+    <header class="bg-blue-900 text-white py-8 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Welkom op het Sportpark Portaal</h1>
+            <p class="text-blue-200 max-w-2xl mx-auto">Het centrale platform voor trainers, teams, bestuur en complexbeheerders.</p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-12">
+
+        <!-- Sfeerbeeld / YouTube Sectie -->
+        <section class="bg-white p-6 rounded-xl shadow-sm">
+            <h2 class="text-xl font-semibold mb-4 text-blue-900">Sfeerimpressie</h2>
+            <div class="w-full h-80 bg-black rounded-lg overflow-hidden">
+                <!-- Vervang de src hieronder met je eigen YouTube video embed link -->
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Google Drive Afdelingen -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 text-blue-900">Google Drive Omgevingen</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="#" target="_blank" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-blue-500 block">
+                    <h3 class="font-bold text-lg mb-1">Onderbouw</h3>
+                    <p class="text-sm text-slate-500">Trainersinfo, oefenstof & KNVB infographics</p>
+                </a>
+                <a href="#" target="_blank" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-blue-600 block">
+                    <h3 class="font-bold text-lg mb-1">Middenbouw</h3>
+                    <p class="text-sm text-slate-500">Spelopvatting, schema's & documenten</p>
+                </a>
+                <a href="#" target="_blank" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-blue-700 block">
+                    <h3 class="font-bold text-lg mb-1">Bovenbouw & Senioren</h3>
+                    <p class="text-sm text-slate-500">Selectiebeleid, taakverdeling & formulieren</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- De Wedstrijdvelden & Bezetting -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 text-blue-900">Wedstrijdvelden & Reserveringen</h2>
+            <p class="text-sm text-slate-600 mb-4">Klik op een veld om de bezetting te bekijken of een tijdslot te reserveren.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Veld 1 -->
+                <div onclick="openFieldModal('Veld 1')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition">
+                    <div class="h-40 bg-emerald-700 flex items-center justify-center text-white font-bold text-xl">Veld 1 (Hoofdveld)</div>
+                    <div class="p-4"><span class="text-blue-600 font-medium text-sm">Bezetting & Reserveren &rarr;</span></div>
+                </div>
+                <!-- Veld 2 -->
+                <div onclick="openFieldModal('Veld 2')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition">
+                    <div class="h-40 bg-emerald-600 flex items-center justify-center text-white font-bold text-xl">Veld 2</div>
+                    <div class="p-4"><span class="text-blue-600 font-medium text-sm">Bezetting & Reserveren &rarr;</span></div>
+                </div>
+                <!-- Veld 3 -->
+                <div onclick="openFieldModal('Veld 3')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition">
+                    <div class="h-40 bg-emerald-500 flex items-center justify-center text-white font-bold text-xl">Veld 3</div>
+                    <div class="p-4"><span class="text-blue-600 font-medium text-sm">Bezetting & Reserveren &rarr;</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beveiligde Secties (Bestuur, Kantine, Veldploeg, Beheerders) -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 text-blue-900">Beveiligde Afdelingen</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <button onclick="requestAccess('Bestuur')" class="p-4 bg-white rounded-xl shadow-sm hover:bg-slate-50 transition text-left border border-slate-200 font-semibold text-slate-700">🔒 Bestuur</button>
+                <button onclick="requestAccess('Kantine')" class="p-4 bg-white rounded-xl shadow-sm hover:bg-slate-50 transition text-left border border-slate-200 font-semibold text-slate-700">🔒 Kantine</button>
+                <button onclick="requestAccess('Veldploeg')" class="p-4 bg-white rounded-xl shadow-sm hover:bg-slate-50 transition text-left border border-slate-200 font-semibold text-slate-700">🔒 Veldploeg</button>
+                <button onclick="requestAccess('Complexbeheerders')" class="p-4 bg-white rounded-xl shadow-sm hover:bg-slate-50 transition text-left border border-slate-200 font-semibold text-slate-700">🔒 Complexbeheerders</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal voor Velden (Wordt geopend bij klik op veld) -->
+    <div id="fieldModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative space-y-4">
+            <button onclick="closeFieldModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            <h3 id="modalTitle" class="text-2xl font-bold text-blue-900">Veld Details</h3>
+            <p class="text-sm text-slate-500">Bekijk hieronder de live kalender of vraag direct een veld aan.</p>
+            
+            <!-- Hier komt de Google Calendar iframe -->
+            <div class="bg-slate-100 h-64 rounded-lg flex items-center justify-center text-slate-400 border border-slate-200">
+                [Google Calendar Iframe per Veld]
+            </div>
+
+            <div class="pt-2">
+                <a href="#" target="_blank" class="inline-block bg-blue-600 text-white font-medium px-5 py-2.5 rounded-lg hover:bg-blue-700 transition">Open Google Forms Reservering</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript voor Modals en Wachtwoord beveiliging -->
+    <script>
+        const correctPassword = "DeBlauwen_25021913";
+
+        function openFieldModal(fieldName) {
+            document.getElementById('modalTitle').innerText = fieldName + ' - Bezetting & Reserveren';
+            document.getElementById('fieldModal').classList.remove('hidden');
+            document.getElementById('fieldModal').classList.add('flex');
+        }
+
+        function closeFieldModal() {
+            document.getElementById('fieldModal').classList.remove('flex');
+            document.getElementById('fieldModal').classList.add('hidden');
+        }
+
+        function requestAccess(section) {
+            let pwd = prompt("Voer het wachtwoord in voor " + section + ":");
+            if (pwd === correctPassword) {
+                alert("Toegang verleend tot " + section + "! Hier laad je straks de beveiligde content.");
+                // Hier kun je later de logica toevoegen om de beveiligde content te tonen
+            } else if (pwd !== null) {
+                alert("Onjuist wachtwoord!");
+            }
+        }
+    </script>
+</body>
+</html>
