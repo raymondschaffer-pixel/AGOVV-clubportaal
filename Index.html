@@ -23,7 +23,6 @@
         <section class="bg-white p-6 rounded-xl shadow-sm">
             <h2 class="text-xl font-semibold mb-4 text-blue-900">Sfeerimpressie</h2>
             <div class="w-full h-80 bg-black rounded-lg overflow-hidden">
-                <!-- Vervang de src hieronder met je eigen YouTube video embed link -->
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
@@ -50,27 +49,36 @@
         <!-- De Wedstrijdvelden & Bezetting -->
         <section>
             <h2 class="text-2xl font-bold mb-4 text-blue-900">Wedstrijdvelden & Reserveringen</h2>
-            <p class="text-sm text-slate-600 mb-4">Klik op een veld om de bezetting te bekijken of een tijdslot te reserveren.</p>
+            <p class="text-sm text-slate-600 mb-4">Klik op een veld om de foto te vergroten, de bezetting te bekijken of een tijdslot te reserveren.</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Veld 1 -->
-                <div onclick="openFieldModal('Veld 1')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition">
-                    <div class="h-40 bg-emerald-700 flex items-center justify-center text-white font-bold text-xl">Veld 1 (Hoofdveld)</div>
-                    <div class="p-4"><span class="text-blue-600 font-medium text-sm">Bezetting & Reserveren &rarr;</span></div>
+                <div onclick="openFieldModal('Veld 1 (Hoofdveld)', 'veld1')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition group">
+                    <div class="h-40 bg-cover bg-center transition group-hover:scale-105 duration-300" style="background-image: url('image.png');"></div>
+                    <div class="p-4 flex justify-between items-center">
+                        <span class="font-bold text-slate-800">Veld 1 (Hoofdveld)</span>
+                        <span class="text-blue-600 font-medium text-sm">Bezetting &rarr;</span>
+                    </div>
                 </div>
                 <!-- Veld 2 -->
-                <div onclick="openFieldModal('Veld 2')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition">
-                    <div class="h-40 bg-emerald-600 flex items-center justify-center text-white font-bold text-xl">Veld 2</div>
-                    <div class="p-4"><span class="text-blue-600 font-medium text-sm">Bezetting & Reserveren &rarr;</span></div>
+                <div onclick="openFieldModal('Veld 2', 'veld2')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition group">
+                    <div class="h-40 bg-emerald-600 bg-cover bg-center flex items-center justify-center text-white font-bold text-xl transition group-hover:scale-105 duration-300">Veld 2</div>
+                    <div class="p-4 flex justify-between items-center">
+                        <span class="font-bold text-slate-800">Veld 2</span>
+                        <span class="text-blue-600 font-medium text-sm">Bezetting &rarr;</span>
+                    </div>
                 </div>
                 <!-- Veld 3 -->
-                <div onclick="openFieldModal('Veld 3')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition">
-                    <div class="h-40 bg-emerald-500 flex items-center justify-center text-white font-bold text-xl">Veld 3</div>
-                    <div class="p-4"><span class="text-blue-600 font-medium text-sm">Bezetting & Reserveren &rarr;</span></div>
+                <div onclick="openFieldModal('Veld 3', 'veld3')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition group">
+                    <div class="h-40 bg-emerald-500 bg-cover bg-center flex items-center justify-center text-white font-bold text-xl transition group-hover:scale-105 duration-300">Veld 3</div>
+                    <div class="p-4 flex justify-between items-center">
+                        <span class="font-bold text-slate-800">Veld 3</span>
+                        <span class="text-blue-600 font-medium text-sm">Bezetting &rarr;</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Beveiligde Secties (Bestuur, Kantine, Veldploeg, Beheerders) -->
+        <!-- Beveiligde Secties -->
         <section>
             <h2 class="text-2xl font-bold mb-4 text-blue-900">Beveiligde Afdelingen</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -83,44 +91,61 @@
 
     </main>
 
-    <!-- Modal voor Velden (Wordt geopend bij klik op veld) -->
-    <div id="fieldModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative space-y-4">
-            <button onclick="closeFieldModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+    <!-- Modal voor Velden -->
+    <div id="fieldModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative space-y-4 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeFieldModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl font-bold">&times;</button>
             <h3 id="modalTitle" class="text-2xl font-bold text-blue-900">Veld Details</h3>
-            <p class="text-sm text-slate-500">Bekijk hieronder de live kalender of vraag direct een veld aan.</p>
             
-            <!-- Hier komt de Google Calendar iframe -->
-            <div class="bg-slate-100 h-64 rounded-lg flex items-center justify-center text-slate-400 border border-slate-200">
-                [Google Calendar Iframe per Veld]
+            <!-- Uitvergrote Foto van het veld -->
+            <div id="modalImageContainer" class="h-48 rounded-lg bg-cover bg-center border border-slate-200" style="background-image: url('image.png');"></div>
+
+            <p class="text-sm text-slate-500">Bekijk hieronder de live kalender voor de bezetting of dien direct een reservering in.</p>
+            
+            <!-- Google Calendar iframe per veld -->
+            <div class="w-full h-72 rounded-lg overflow-hidden border border-slate-200">
+                <iframe id="calendarIframe" class="w-full h-full" src="" style="border: 0" frameborder="0" scrolling="no"></iframe>
             </div>
 
-            <div class="pt-2">
-                <a href="#" target="_blank" class="inline-block bg-blue-600 text-white font-medium px-5 py-2.5 rounded-lg hover:bg-blue-700 transition">Open Google Forms Reservering</a>
+            <div class="pt-2 flex justify-end">
+                <a id="formLink" href="#" target="_blank" class="bg-blue-600 text-white font-medium px-5 py-2.5 rounded-lg hover:bg-blue-700 transition">Veld Reserveren (Google Forms)</a>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript voor Modals en Wachtwoord beveiliging -->
+    <!-- JavaScript -->
     <script>
         const correctPassword = "DeBlauwen_25021913";
 
-        function openFieldModal(fieldName) {
+        // Je kunt hieronder de Google Agenda embed URL's per veld koppelen
+        const calendarUrls = {
+            'veld1': 'https://calendar.google.com/calendar/embed?src= jouw_agenda_id_veld1@group.calendar.google.com &ctz=Europe%2FAmsterdam',
+            'veld2': 'https://calendar.google.com/calendar/embed?src= jouw_agenda_id_veld2@group.calendar.google.com &ctz=Europe%2FAmsterdam',
+            'veld3': 'https://calendar.google.com/calendar/embed?src= jouw_agenda_id_veld3@group.calendar.google.com &ctz=Europe%2FAmsterdam'
+        };
+
+        // Jouw Google Forms link voor reserveringen
+        const googleFormUrl = "https://forms.gle/jouw-google-form-link";
+
+        function openFieldModal(fieldName, fieldKey) {
             document.getElementById('modalTitle').innerText = fieldName + ' - Bezetting & Reserveren';
+            document.getElementById('calendarIframe').src = calendarUrls[fieldKey] || '';
+            document.getElementById('formLink').href = googleFormUrl;
+            
             document.getElementById('fieldModal').classList.remove('hidden');
             document.getElementById('fieldModal').classList.add('flex');
         }
 
         function closeFieldModal() {
             document.getElementById('fieldModal').classList.remove('flex');
-            document.getElementById('fieldModal').classList.add('hidden');
+            document.getElementById('fieldModal'].classList.add('hidden');
+            document.getElementById('calendarIframe').src = ''; // Stop laden agenda bij sluiten
         }
 
         function requestAccess(section) {
             let pwd = prompt("Voer het wachtwoord in voor " + section + ":");
             if (pwd === correctPassword) {
-                alert("Toegang verleend tot " + section + "! Hier laad je straks de beveiligde content.");
-                // Hier kun je later de logica toevoegen om de beveiligde content te tonen
+                alert("Toegang verleend tot " + section + "!");
             } else if (pwd !== null) {
                 alert("Onjuist wachtwoord!");
             }
