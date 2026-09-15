@@ -53,7 +53,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Veld 1 -->
                 <div onclick="openFieldModal('Veld 1 (Hoofdveld)', 'veld1')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition group">
-                    <div class="h-40 bg-cover bg-center transition group-hover:scale-105 duration-300" style="background-image: url('image.png');"></div>
+                    <div class="h-40 bg-cover bg-center transition group-hover:scale-105 duration-300" style="background-image: url('veld1.jpg');"></div>
                     <div class="p-4 flex justify-between items-center">
                         <span class="font-bold text-slate-800">Veld 1 (Hoofdveld)</span>
                         <span class="text-blue-600 font-medium text-sm">Bezetting &rarr;</span>
@@ -61,7 +61,7 @@
                 </div>
                 <!-- Veld 2 -->
                 <div onclick="openFieldModal('Veld 2', 'veld2')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition group">
-                    <div class="h-40 bg-emerald-600 bg-cover bg-center flex items-center justify-center text-white font-bold text-xl transition group-hover:scale-105 duration-300">Veld 2</div>
+                    <div class="h-40 bg-cover bg-center transition group-hover:scale-105 duration-300" style="background-image: url('veld2.jpg');"></div>
                     <div class="p-4 flex justify-between items-center">
                         <span class="font-bold text-slate-800">Veld 2</span>
                         <span class="text-blue-600 font-medium text-sm">Bezetting &rarr;</span>
@@ -69,7 +69,7 @@
                 </div>
                 <!-- Veld 3 -->
                 <div onclick="openFieldModal('Veld 3', 'veld3')" class="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition group">
-                    <div class="h-40 bg-emerald-500 bg-cover bg-center flex items-center justify-center text-white font-bold text-xl transition group-hover:scale-105 duration-300">Veld 3</div>
+                    <div class="h-40 bg-cover bg-center transition group-hover:scale-105 duration-300" style="background-image: url('veld3.jpg');"></div>
                     <div class="p-4 flex justify-between items-center">
                         <span class="font-bold text-slate-800">Veld 3</span>
                         <span class="text-blue-600 font-medium text-sm">Bezetting &rarr;</span>
@@ -98,7 +98,7 @@
             <h3 id="modalTitle" class="text-2xl font-bold text-blue-900">Veld Details</h3>
             
             <!-- Uitvergrote Foto van het veld -->
-            <div id="modalImageContainer" class="h-48 rounded-lg bg-cover bg-center border border-slate-200" style="background-image: url('image.png');"></div>
+            <div id="modalImageContainer" class="h-56 rounded-lg bg-cover bg-center border border-slate-200"></div>
 
             <p class="text-sm text-slate-500">Bekijk hieronder de live kalender voor de bezetting of dien direct een reservering in.</p>
             
@@ -117,7 +117,14 @@
     <script>
         const correctPassword = "DeBlauwen_25021913";
 
-        // Je kunt hieronder de Google Agenda embed URL's per veld koppelen
+        // Mapping van bestandsnamen per veld voor de pop-up foto's
+        const fieldImages = {
+            'veld1': 'veld1.jpg',
+            'veld2': 'veld2.jpg',
+            'veld3': 'veld3.jpg'
+        };
+
+        // Google Agenda embed URL's per veld
         const calendarUrls = {
             'veld1': 'https://calendar.google.com/calendar/embed?src= jouw_agenda_id_veld1@group.calendar.google.com &ctz=Europe%2FAmsterdam',
             'veld2': 'https://calendar.google.com/calendar/embed?src= jouw_agenda_id_veld2@group.calendar.google.com &ctz=Europe%2FAmsterdam',
@@ -132,14 +139,17 @@
             document.getElementById('calendarIframe').src = calendarUrls[fieldKey] || '';
             document.getElementById('formLink').href = googleFormUrl;
             
+            // Zet de juiste grote foto in de modal achtergrond
+            document.getElementById('modalImageContainer').style.backgroundImage = `url('${fieldImages[fieldKey]}')`;
+
             document.getElementById('fieldModal').classList.remove('hidden');
             document.getElementById('fieldModal').classList.add('flex');
         }
 
         function closeFieldModal() {
             document.getElementById('fieldModal').classList.remove('flex');
-            document.getElementById('fieldModal'].classList.add('hidden');
-            document.getElementById('calendarIframe').src = ''; // Stop laden agenda bij sluiten
+            document.getElementById('fieldModal').classList.add('hidden');
+            document.getElementById('calendarIframe').src = ''; 
         }
 
         function requestAccess(section) {
